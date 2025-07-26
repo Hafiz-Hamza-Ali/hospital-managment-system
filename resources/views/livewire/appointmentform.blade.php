@@ -54,9 +54,10 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                    <div class="row">
                       <div class="form-group">
+                        {{-- {{dd(\App\Models\doctor::all())}} --}}
                          <select wire:model.lazy="doctor" name="doctor"  class="form-control">
                           @forelse (\App\Models\doctor::all() as $doctor)
-                            <option value="{{ $doctor->name }}">{{ $doctor->name }}</option>
+                            <option value="{{ $doctor->id }}">{{ $doctor->employ->name }}</option>
                           @empty
                            <option>No Doctor Found!</option>
                           @endforelse

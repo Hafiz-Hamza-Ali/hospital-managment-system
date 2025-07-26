@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class operationreport extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $fillable=[
+    use HasFactory, SoftDeletes;
+    protected $fillable = [
         "patient_id",
         "description",
         "doctor_id",

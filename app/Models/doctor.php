@@ -21,6 +21,6 @@ class doctor extends Model
      */
     public function employ(): BelongsTo
     {
-        return $this->belongsTo(employee::class,'employee_id','id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 }

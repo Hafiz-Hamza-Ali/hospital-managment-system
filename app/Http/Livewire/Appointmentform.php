@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Livewire;
-use App\Models\requestedappointment;
+
+use App\Models\requestedAppointment;
 use Livewire\Component;
 
 class Appointmentform extends Component
@@ -24,28 +25,28 @@ class Appointmentform extends Component
             'doctor' => 'required',
             'address' => 'required',
             'message' => 'required|max:550',
-            ]);
+        ]);
 
-        requestedappointment::create([
+        requestedAppointment::create([
             'name'          => $this->name,
             'email'         => $this->email,
             'phone'         => $this->phone,
             'stime'       => $this->stime,
             'address'       => $this->address,
-            'doctor'       => $this->doctor,
+            'doctor_id'       => $this->doctor,
             'message' => $this->message,
         ]);
 
-           //unset variables
-           $this->name="";
-           $this->email="";
-           $this->stime="";
-           $this->phone="";
-           $this->doctor="";
-           $this->address="";
-           $this->message="";
+        //unset variables
+        $this->name = "";
+        $this->email = "";
+        $this->stime = "";
+        $this->phone = "";
+        $this->doctor = "";
+        $this->address = "";
+        $this->message = "";
 
-           session()->flash('message', 'Your Appointment Added successfully.');
+        session()->flash('message', 'Your Appointment Added successfully.');
     }
     public function render()
     {

@@ -95,7 +95,7 @@
                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="row">
                                <div class="form-group">
-                                  <select class="form-control">
+                                  <select id="123" class="form-control">
                                      <option>Doctor Name</option>
                                      <option>Mr.XYZ</option>
                                      <option>Mr.ABC</option>

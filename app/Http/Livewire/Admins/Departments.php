@@ -77,7 +77,6 @@ class Departments extends Component
             session()->flash('message', 'Department Created successfully.');
             $this->_page = 'index';
         }
-
     }
 
     public function storeImage()
@@ -135,8 +134,6 @@ class Departments extends Component
         session()->flash('message', 'Department Updated Successfully.');
         $this->_page = 'index';
         $this->button_text = "Add New Department";
-
-
     }
 
     public function delete($id)

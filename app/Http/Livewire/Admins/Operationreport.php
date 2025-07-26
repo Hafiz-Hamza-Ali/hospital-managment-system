@@ -42,7 +42,6 @@ class Operationreport extends Component
         if ($this->edit_operation_report_id) {
 
             $this->update($this->edit_operation_report_id);
-
         } else {
             $this->validate([
                 'patient' => 'required',
@@ -65,7 +64,6 @@ class Operationreport extends Component
             $this->_page = 'index';
             session()->flash('message', 'Operation Report Created successfully.');
         }
-
     }
 
 
@@ -137,7 +135,5 @@ class Operationreport extends Component
                 'patients' => patient::all(),
             ])->layout('admins.layouts.app');
         }
-
     }
-
 }

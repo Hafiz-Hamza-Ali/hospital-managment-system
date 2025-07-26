@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admins;
 
-use App\Models\settings as SettingModel;
+use App\Models\Settings as SettingModel;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +20,7 @@ class Settings extends Component
 
     public function mount()
     {
+        //   dd(SettingModel::all());
         $this->settings = SettingModel::all()->pluck('value', 'key')->toArray();
     }
 
@@ -51,7 +52,7 @@ class Settings extends Component
                 $key => 'image|mimes:jpg,png,jpeg|max:2048',
             ]);
 
-            $imagePath = $this->{$key}->store('uploads','public');
+            $imagePath = $this->{$key}->store('uploads', 'public');
             $setting->update(['value' => $imagePath]);
         }
     }

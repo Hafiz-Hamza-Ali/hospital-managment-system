@@ -32,33 +32,33 @@ class Birthreport extends Component
     public function add_birthreport()
     {
         if ($this->edit_birth_report_id) {
-
+            //   dd('ejqwke');
             $this->update($this->edit_birth_report_id);
-
-        }else{
+        } else {
+            //    dd($this->patient);
             $this->validate([
                 'patient' => 'required',
                 'doctor' => 'required',
                 'details' => 'required',
-                ]);
-
+            ]);
+            //     dd($this->patient);
             ModelsBirthreport::create([
-                'patient'          => $this->patient,
+                'patient_id'          => $this->patient,
                 'description'         => $this->details,
-                'doctor'         => $this->doctor,
+                'doctor_id'         => $this->doctor,
+                'gender' => 'Male'
             ]);
 
-            $this->patient="";
-            $this->details="";
-            $this->doctor="";
+            $this->patient = "";
+            $this->details = "";
+            $this->doctor = "";
 
             session()->flash('message', 'Birth Report Created successfully.');
         }
-
     }
 
 
-     public function edit($id)
+    public function edit($id)
     {
         $birthreport = ModelsBirthreport::findOrFail($id);
         $this->edit_birth_report_id = $id;
@@ -66,16 +66,16 @@ class Birthreport extends Component
         $this->details = $birthreport->description;
         $this->doctor = $birthreport->doctor;
 
-        $this->button_text="Update Birth Report";
+        $this->button_text = "Update Birth Report";
     }
 
     public function update($id)
     {
         $this->validate([
-                'patient' => 'required',
-                'details' => 'required',
-                'doctor' => 'required',
-            ]);
+            'patient' => 'required',
+            'details' => 'required',
+            'doctor' => 'required',
+        ]);
 
         $birthreport = ModelsBirthreport::findOrFail($id);
         $birthreport->patient = $this->patient;
@@ -84,18 +84,17 @@ class Birthreport extends Component
 
         $birthreport->save();
 
-        $this->patient="";
-        $this->details="";
-        $this->doctor="";
-        $this->edit_birth_report_id="";
+        $this->patient = "";
+        $this->details = "";
+        $this->doctor = "";
+        $this->edit_birth_report_id = "";
 
         session()->flash('message', 'Birth Report Updated Successfully.');
 
         $this->button_text = "Add New Birth Report";
+    }
 
-}
-
-     public function delete($id)
+    public function delete($id)
     {
         ModelsBirthreport::findOrFail($id)->delete();
         session()->flash('message', 'Birthreport Deleted Successfully.');
@@ -103,7 +102,9 @@ class Birthreport extends Component
 
     public function render()
     {
-        return view('livewire.admins.birthreport',[
+        //$doctor = doctor::all();
+        //  dd($doctor);
+        return view('livewire.admins.birthreport', [
             'BirthReports' => ModelsBirthreport::latest()->paginate(10),
             'doctors' => doctor::all(),
             'patients' => patient::all(),

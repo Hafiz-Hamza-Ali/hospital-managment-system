@@ -1,4 +1,4 @@
-<div class="serch-bar">
+{{-- <div class="serch-bar">
     <div id="custom-search-input">
         <div class="input-group col-md-12">
             <input type="search" wire:model="item" class="form-control input-lg" placeholder="Search" />
@@ -9,4 +9,4 @@
             </span>
         </div>
     </div>
-</div>
+</div> --}}

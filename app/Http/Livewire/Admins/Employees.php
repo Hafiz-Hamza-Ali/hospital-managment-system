@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Admins;
 
 use App\Models\doctor;
-use App\Models\employee;
+use App\Models\Employee;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -44,9 +44,11 @@ class Employees extends Component
 
     public function show_edit_form($id)
     {
+
         $this->_page = "edit";
         $this->_edit_employ_id = $id;
-        $employ = employee::find($id);
+        $employ = Employee::find($id);
+        // dd($employ->image);
         $this->name = $employ->name;
         $this->email = $employ->email;
         $this->qualification = $employ->qualification;
@@ -66,6 +68,17 @@ class Employees extends Component
 
     public function add_employee()
     {
+        // dd([
+        //     'name' => $this->name,
+        //     'email' => $this->email,
+        //     'phone' => $this->phone,
+        //     'salary' => $this->salary,
+        //     'address' => $this->address,
+        //     'qualification' => $this->qualification,
+        //     'position' => $this->position,
+        //     'status' => $this->status,
+        //     'image' => $this->image
+        // ]);
         $this->validate([
             "name" => "required|string",
             "email" => "required|email|unique:employees,email",
@@ -79,8 +92,8 @@ class Employees extends Component
         ]);
 
         $image = $this->image->store('employees', 'public');
-
-        $employee = employee::create([
+        //dd($image);
+        $employee = Employee::create([
             "name" => $this->name,
             "email" => $this->email,
             "phone" => $this->phone,
@@ -121,13 +134,12 @@ class Employees extends Component
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
         ]);
 
-        $employ = employee::find($this->_edit_employ_id);
+        $employ = Employee::find($this->_edit_employ_id);
         $image = $employ->image;
 
         if ($this->image) {
             \Storage::delete($employ->image);
             $image = $this->image->store('employees', 'public');
-
         }
 
         $employ->name = $this->name;
@@ -148,8 +160,9 @@ class Employees extends Component
         $this->_page = "index";
     }
 
-    public function delete($id)
+    public function delete_confirm($id)
     {
+        // dd("hamzz");
         $employ = Employee::find($id);
 
         if ($employ) {
@@ -166,7 +179,12 @@ class Employees extends Component
     }
 
 
-
+    // public function delete_confirm($id)
+    // {
+    //     if (confirm("Are you sure you want to delete this employee?")) {
+    //         $this->delete($id);
+    //     }
+    // }
     public function render()
     {
         $this->selectedFilter = $this->_filter;
@@ -174,15 +192,14 @@ class Employees extends Component
         $positions = ["nurse", "doctor", "accountant", "pharmacist", "receptionist", "cleaner", "security", "other"];
         if ($this->_page == "index") {
             if ($this->_filter == "all") {
-                $data = employee::latest()->paginate(10);
+                $data = Employee::latest()->paginate(10);
             } else {
-                $data = employee::where('position', $this->_filter)->latest()->paginate(10);
+                $data = Employee::where('position', $this->_filter)->latest()->paginate(10);
             }
             return view('livewire.admins.employ.index', [
                 'employees' => $data,
                 'positions' => $positions
             ])->layout('admins.layouts.app');
-
         } else if ($this->_page == "create") {
             return view('livewire.admins.employ.create', [
                 'positions' => $positions

@@ -38,12 +38,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{-- {{dd($departments[0]['hod']['doctor']['employ']['name']);}} --}}
                             @forelse ($departments as $department)
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $department->name }}</td>
                                 <td><img width="50px" height="50px" src="{{ $department->photo_path }}"
                                           alt=""></td>
-                                <td>{{ $department->hod->doctor->employ->name }}</td>
+                                <td>{{ data_get($department, 'hod.doctor.employ.name', 'Unknown') }}</td>
                                 <td>{{ $department->block->blockname }}</td>
                                 <td>{{ $department->created_at }}</td>
                                 <td class="text-right">

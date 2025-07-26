@@ -39,22 +39,22 @@
                         </thead>
                         <tbody>
                             @forelse ($reports as $operationReport)
-                                <tr>
-                                    <td>{{ $operationReport->id }}</td>
-                                    <td>{{ $operationReport->patient->name }}</td>
-                                    <td>{{ $operationReport->description }}</td>
-                                    <td>{{ $operationReport->doctor->employ->name }}</td>
-                                    <td>{{ ucfirst($operationReport->status) }}</td>
-                                    <td>{{ $operationReport->created_at }}</td>
-                                    <td class="text-right">
-                                        <button wire:click="edit({{ $operationReport->id }})"
-                                            class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></button>
-                                        <button wire:click="delete({{ $operationReport->id }})"
-                                            onclick="return confirm('{{ __('Are You Sure ?') }}')"
-                                            class="btn btn-outline-danger btn-rounded"><i
-                                                class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>{{ $operationReport->id ?? 'N/A' }}</td>
+                                <td>{{ $operationReport->patient->name ?? 'Unknown Patient' }}</td>
+                                <td>{{ $operationReport->description ?? 'No Description' }}</td>
+                                <td>{{ optional($operationReport->doctor->employ)->name ?? 'Unknown Doctor' }}</td>
+                                <td>{{ ucfirst($operationReport->status ?? 'pending') }}</td>
+                                <td>{{ $operationReport->created_at ?? 'N/A' }}</td>
+                                <td class="text-right">
+                                    <button wire:click="edit({{ $operationReport->id }})"
+                                        class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></button>
+                                    <button wire:click="delete({{ $operationReport->id }})"
+                                        onclick="return confirm('{{ __('Are You Sure ?') }}')"
+                                        class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            
                             @empty
                                 <td class="text-warning">{{ __('Null') }}</td>
                                 <td class="text-warning">{{ __('Null') }}</td>
